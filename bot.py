@@ -23,8 +23,10 @@ def post_tweet():
     random_chapter = random.choice(list(data.keys()))
     random_sentence = random.choice(data[random_chapter])
 
-    client.create_tweet(text=f"{random_sentence[:-1]}")
-    print(f"Posted: {random_sentence[:-1]}")
+    tweet_text = random_sentence.rstrip('.') if random_sentence.endswith('.') else random_sentence
+
+    client.create_tweet(text=f"{tweet_text}")
+    print(f"Posted: {tweet_text}")
 
 schedule.every(3).hours.do(post_tweet)
 
